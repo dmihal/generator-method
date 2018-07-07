@@ -17,7 +17,3 @@ Package.onUse(function(api) {
   api.mainModule('client.js', 'client');
   api.mainModule('server.js', 'server');
 });
-
-Npm.depends({
-  'babel-polyfill': '6.26.0',
-});

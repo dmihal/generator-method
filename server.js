@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-import 'babel-polyfill';
 
+Symbol.asyncIterator = Symbol.asyncIterator || Symbol('Symbol.asyncIterator');
 
 const MethodUpdates = new Mongo.Collection('_generatorMethodUpdates', { connection: null });
 

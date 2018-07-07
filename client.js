@@ -1,6 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 
+Symbol.asyncIterator = Symbol.asyncIterator || Symbol('Symbol.asyncIterator');
+
 const MethodUpdates = new Mongo.Collection('_generatorMethodUpdates');
 
 Meteor.callGenerator = function callGenerator(...args) {
