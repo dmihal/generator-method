@@ -1,0 +1,9 @@
+# generator-method
+
+## Server:
+
+```
+```
+
+## Client:
+

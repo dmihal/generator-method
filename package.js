@@ -1,8 +1,8 @@
 Package.describe({
-  name: 'dmihal:yield-method',
-  version: '0.0.1',
+  name: 'dmihal:generator-method',
+  version: '0.1.0',
   // Brief, one-line summary of the package.
-  summary: '',
+  summary: 'Publish meteor methods that yield data',
   // URL to the Git repository containing the source code for this package.
   git: '',
   // By default, Meteor will default to using README.md for documentation.
@@ -11,14 +11,13 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom('1.7.0.1');
+  api.versionsFrom('1.5');
   api.use('ecmascript');
-  api.mainModule('yield-method.js');
+  api.use('mongo');
+  api.mainModule('client.js', 'client');
+  api.mainModule('server.js', 'server');
 });
 
-Package.onTest(function(api) {
-  api.use('ecmascript');
-  api.use('tinytest');
-  api.use('dmihal:yield-method');
-  api.mainModule('yield-method-tests.js');
+Npm.depends({
+  'babel-polyfill': '6.26.0',
 });
