@@ -10,6 +10,7 @@ Package.onUse(function(api) {
   api.versionsFrom('1.5');
   api.use('ecmascript');
   api.use('mongo');
+  api.use('check', 'server');
   api.mainModule('client.js', 'client');
   api.mainModule('server.js', 'server');
 });

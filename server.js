@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
+import { check } from 'meteor/check';
 
 Symbol.asyncIterator = Symbol.asyncIterator || Symbol('Symbol.asyncIterator');
 
@@ -41,5 +42,6 @@ Meteor.generatorMethod = function generatorMethod(name, handler) {
 }
 
 Meteor.publish('_generatorMethodUpdates', function methodUpdates(callId) {
+  check(callId, Number);
   return MethodUpdates.find({ callId, user: this.userId });
 }, { is_auto: true });
