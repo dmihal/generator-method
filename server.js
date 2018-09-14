@@ -42,4 +42,4 @@ Meteor.generatorMethod = function generatorMethod(name, handler) {
 
 Meteor.publish('_generatorMethodUpdates', function methodUpdates(callId) {
   return MethodUpdates.find({ callId, user: this.userId });
-});
+}, { is_auto: true });
