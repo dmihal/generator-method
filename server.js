@@ -24,8 +24,6 @@ async function runMethod(callId, context, handler, args) {
     user: context.userId,
     done: true,
   });
-
-  // TODO: cleanup updates from memory
 }
 
 let nextId = 1;
@@ -43,5 +41,12 @@ Meteor.generatorMethod = function generatorMethod(name, handler) {
 
 Meteor.publish('_generatorMethodUpdates', function methodUpdates(callId) {
   check(callId, Number);
-  return MethodUpdates.find({ callId, user: this.userId });
+
+  const query = { callId, user: this.userId };
+  const cleanupUpdates = () => MethodUpdates.remove(query);
+
+  this.onStop(cleanupUpdates);
+  this.connection.onClose(cleanupUpdates);
+
+  return MethodUpdates.find(query);
 }, { is_auto: true });
