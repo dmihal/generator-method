@@ -14,14 +14,14 @@ async function runMethod(callId, context, handler, args) {
     const response = next.value;
     MethodUpdates.insert({
       callId,
-      user: context.userId,
+      connection: context.connection.id,
       response,
     });
   }
 
   MethodUpdates.insert({
     callId,
-    user: context.userId,
+    connection: context.connection.id,
     done: true,
   });
 }
@@ -42,11 +42,13 @@ Meteor.generatorMethod = function generatorMethod(name, handler) {
 Meteor.publish('_generatorMethodUpdates', function methodUpdates(callId) {
   check(callId, Number);
 
-  const query = { callId, user: this.userId };
+  const query = { callId, connection: this.connection.id };
   const cleanupUpdates = () => MethodUpdates.remove(query);
 
   this.onStop(cleanupUpdates);
   this.connection.onClose(cleanupUpdates);
 
-  return MethodUpdates.find(query);
+  return MethodUpdates.find(query, {
+    fields: { connection: 0 },
+  });
 }, { is_auto: true });
