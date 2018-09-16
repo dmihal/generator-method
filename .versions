@@ -11,7 +11,7 @@ ddp-client@2.3.3
 ddp-common@1.4.0
 ddp-server@2.2.0
 diff-sequence@1.1.0
-dmihal:generator-method@0.1.3
+dmihal:generator-method@0.1.4
 dynamic-import@0.4.2
 ecmascript@0.11.1
 ecmascript-runtime@0.7.0
