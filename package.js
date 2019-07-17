@@ -1,6 +1,6 @@
 Package.describe({
   name: 'dmihal:generator-method',
-  version: '0.1.4',
+  version: '0.1.5',
   summary: 'Publish meteor methods that yield data',
   git: 'https://github.com/dmihal/generator-method',
   documentation: 'README.md'

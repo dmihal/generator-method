@@ -24,7 +24,7 @@ Meteor.callGenerator = function callGenerator(...args) {
         }
 
         const update = {
-          value: doc.response,
+          value: doc.error ? Promise.reject(doc.error) : doc.response,
           done: doc.done,
         };
 

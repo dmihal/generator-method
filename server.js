@@ -7,23 +7,32 @@ Symbol.asyncIterator = Symbol.asyncIterator || Symbol('Symbol.asyncIterator');
 const MethodUpdates = new Mongo.Collection('_generatorMethodUpdates', { connection: null });
 
 async function runMethod(callId, context, handler, args) {
-  const iterator = handler.call(context, ...args);
+  try {
+    const iterator = handler.call(context, ...args);
 
-  let next;
-  while (!(next = await iterator.next()).done) {
-    const response = next.value;
+    let next;
+    while (!(next = await iterator.next()).done) {
+      const response = next.value;
+      MethodUpdates.insert({
+        callId,
+        connection: context.connection.id,
+        response,
+      });
+    }
+
     MethodUpdates.insert({
       callId,
       connection: context.connection.id,
-      response,
+      done: true,
+    });
+  } catch (e) {
+    MethodUpdates.insert({
+      callId,
+      error: e.toString(),
+      connection: context.connection.id,
+      done: true,
     });
   }
-
-  MethodUpdates.insert({
-    callId,
-    connection: context.connection.id,
-    done: true,
-  });
 }
 
 let nextId = 1;
